@@ -126,10 +126,10 @@ print("predict SGLD")
 
 ########################################################################################################################
 #pSGLD
-image_trans_size_pSGLD = 64
-batch_size_pSGLD = 20
+image_trans_size_pSGLD = 128
+batch_size_pSGLD = 40
 nb_epochs_pSGLD = 100
-lr_pSGLD = 0.00001
+lr_pSGLD = 0.00005
 prior_sig_pSGLD = 0.1
 models_dir_pSGLD = 'models_pSGLD_COVID150'
 results_dir_pSGLD = 'results_pSGLD_COVID150'
@@ -154,8 +154,8 @@ print("predict pSGLD")
 ########################################################################################################################
 #SGHMC
 
-image_trans_size_SGHMC = 64
-batch_size_SGHMC = 50
+image_trans_size_SGHMC = 128
+batch_size_SGHMC = 40
 nb_epochs_SGHMC = 100
 lr_SGHMC = 0.001
 prior_sig_SGHMC = 0.1
@@ -182,9 +182,9 @@ model_SGHMC = TP(image_trans_size_SGHMC, batch_size_SGHMC, nb_epochs_SGHMC, lr_S
 
 
 image_trans_size_BBB = 128
-batch_size_BBB = 20
+batch_size_BBB = 40
 nb_epochs_BBB = 100
-lr_BBB = 0.00001
+lr_BBB = 0.00005
 prior_sig_BBB = 0.1
 models_dir_BBB = 'models_BBB_COVID150'
 results_dir_BBB = 'results_BBB_COVID150'
@@ -296,7 +296,11 @@ ROC_SGLD.threshold_list_train()
 fpr_SGLD = ROC_SGLD.fpr_eval()
 tpr_SGLD = ROC_SGLD.tpr_eval()
 
+fpr_SGLD_train = ROC_SGLD.fpr_eval_train()
+tpr_SGLD_train = ROC_SGLD.tpr_eval_train()
+
 cd_SGLD = ROC_SGLD.crit_point()
+cd_SGLD_test = ROC_SGLD.crit_point_test()
 C2_SGLD, cd_range_SGLD = ROC_SGLD.confusion_matrix_plot_crit()
 
 tnr_SGLD = ROC_SGLD.tnr_eval()
@@ -306,6 +310,7 @@ f1_SGLD = ROC_SGLD.f1_eval()
 mcc_SGLD, mcc_list_SGLD = ROC_SGLD.mcc_eval()
 
 roc_auc_SGLD = metrics.auc(fpr_SGLD, tpr_SGLD)
+roc_auc_SGLD_train = metrics.auc(fpr_SGLD_train, tpr_SGLD_train)
 print(roc_auc_SGLD)
 
 print(C2_SGLD)
@@ -343,7 +348,11 @@ ROC_pSGLD.threshold_list_train()
 fpr_pSGLD = ROC_pSGLD.fpr_eval()
 tpr_pSGLD = ROC_pSGLD.tpr_eval()
 
+fpr_pSGLD_train = ROC_pSGLD.fpr_eval_train()
+tpr_pSGLD_train = ROC_pSGLD.tpr_eval_train()
+
 cd_pSGLD = ROC_pSGLD.crit_point()
+cd_pSGLD_test = ROC_pSGLD.crit_point_test()
 C2_pSGLD, cd_range_pSGLD = ROC_pSGLD.confusion_matrix_plot_crit()
 
 tnr_pSGLD = ROC_pSGLD.tnr_eval()
@@ -355,6 +364,7 @@ mcc_pSGLD, mcc_list_pSGLD = ROC_pSGLD.mcc_eval()
 a_pSGLD, b_pSGLD = mcc_detail(mcc_list_pSGLD)
 
 roc_auc_pSGLD = metrics.auc(fpr_pSGLD, tpr_pSGLD)
+roc_auc_pSGLD_train = metrics.auc(fpr_pSGLD_train, tpr_pSGLD_train)
 print(roc_auc_pSGLD)
 
 print(C2_pSGLD)
@@ -389,7 +399,11 @@ ROC_SGHMC.threshold_list_train()
 fpr_SGHMC = ROC_SGHMC.fpr_eval()
 tpr_SGHMC = ROC_SGHMC.tpr_eval()
 
+fpr_SGHMC_train = ROC_SGHMC.fpr_eval_train()
+tpr_SGHMC_train = ROC_SGHMC.tpr_eval_train()
+
 cd_SGHMC = ROC_SGHMC.crit_point()
+cd_SGHMC_test = ROC_SGHMC.crit_point_test()
 C2_SGHMC, cd_range_SGHMC = ROC_SGHMC.confusion_matrix_plot_crit()
 
 tnr_SGHMC = ROC_SGHMC.tnr_eval()
@@ -401,6 +415,7 @@ mcc_SGHMC, mcc_list_SGHMC = ROC_SGHMC.mcc_eval()
 a_SGHMC, b_SGHMC = mcc_detail(mcc_list_SGHMC)
 
 roc_auc_SGHMC = metrics.auc(fpr_SGHMC, tpr_SGHMC)
+roc_auc_SGHMC_train = metrics.auc(fpr_SGHMC_train, tpr_SGHMC_train)
 print(roc_auc_SGHMC)
 
 print(C2_SGHMC)
@@ -442,8 +457,11 @@ ROC_BBB.threshold_list_train()
 fpr_BBB = ROC_BBB.fpr_eval()
 tpr_BBB = ROC_BBB.tpr_eval()
 
+fpr_BBB_train = ROC_BBB.fpr_eval_train()
+tpr_BBB_train = ROC_BBB.tpr_eval_train()
 
 cd_BBB = ROC_BBB.crit_point()
+cd_BBB_test = ROC_BBB.crit_point_test()
 C2_BBB, cd_range_BBB = ROC_BBB.confusion_matrix_plot_crit()
 
 tnr_BBB = ROC_BBB.tnr_eval()
@@ -455,6 +473,7 @@ mcc_BBB, mcc_list_BBB = ROC_BBB.mcc_eval()
 a_BBB, b_BBB = mcc_detail(mcc_list_BBB)
 
 roc_auc_BBB = metrics.auc(fpr_BBB, tpr_BBB)
+roc_auc_BBB_train = metrics.auc(fpr_BBB_train, tpr_BBB_train)
 print(roc_auc_BBB)
 
 print(C2_BBB)
@@ -570,20 +589,20 @@ for i in ot.values():
 
 toot = {}
 
-print('//////////////////////////////fpr_BBB', fpr_BBB,
-      '//////////////////////////////tpr_BBB', tpr_BBB,
-      '//////////////////////////////cd_BBB', cd_BBB,
-      '//////////////////////////////C2_BBB', C2_BBB,
-      '//////////////////////////////cd_range_BBB', cd_range_BBB,
-      '//////////////////////////////tnr_BBB', tnr_BBB,
-      '//////////////////////////////ppv_BBB', ppv_BBB,
-      '//////////////////////////////acc_BBB', acc_BBB,
-      '//////////////////////////////f1_BBB', f1_BBB,
-      '//////////////////////////////mcc_BBB', mcc_BBB,
-      '//////////////////////////////mcc_list_BBB', mcc_list_BBB,
-      '//////////////////////////////a_BBB', a_BBB,
-      '//////////////////////////////b_BBB', b_BBB,
-      '//////////////////////////////roc_auc_BBB', roc_auc_BBB)
+# print('//////////////////////////////fpr_BBB', fpr_BBB,
+#       '//////////////////////////////tpr_BBB', tpr_BBB,
+#       '//////////////////////////////cd_BBB', cd_BBB,
+#       '//////////////////////////////C2_BBB', C2_BBB,
+#       '//////////////////////////////cd_range_BBB', cd_range_BBB,
+#       '//////////////////////////////tnr_BBB', tnr_BBB,
+#       '//////////////////////////////ppv_BBB', ppv_BBB,
+#       '//////////////////////////////acc_BBB', acc_BBB,
+#       '//////////////////////////////f1_BBB', f1_BBB,
+#       '//////////////////////////////mcc_BBB', mcc_BBB,
+#       '//////////////////////////////mcc_list_BBB', mcc_list_BBB,
+#       '//////////////////////////////a_BBB', a_BBB,
+#       '//////////////////////////////b_BBB', b_BBB,
+#       '//////////////////////////////roc_auc_BBB', roc_auc_BBB)
 
 ThresSplitOutputTable = []
 # for i in range(len(b)):
@@ -650,20 +669,32 @@ if os.path.exists(completeName):
 tsotdf.to_csv(completeName)
 ########################################################################################################################
 
-
+threshold5 = int(len(fpr_SGLD)/2)
 
 plt.figure(20)
 plt.plot(start, end)
 
-plt.plot(fpr_SGLD, tpr_SGLD, lw=1, label="sgld, area=%0.2f)" % (roc_auc_SGLD))
-plt.plot(fpr_pSGLD, tpr_pSGLD, lw=1, label="psgld, area=%0.2f)" % (roc_auc_pSGLD))
-plt.plot(fpr_SGHMC, tpr_SGHMC, lw=1, label="SGHMC, area=%0.2f)" % (roc_auc_SGHMC))
-plt.plot(fpr_BBB, tpr_BBB, lw=1, label="bbb, area=%0.2f)" % (roc_auc_BBB))
+plt.plot(fpr_SGLD, tpr_SGLD, lw=1, color='red', label="SGLD, area=%0.2f)" % (roc_auc_SGLD))
+plt.plot(fpr_pSGLD, tpr_pSGLD, lw=1, color='blue', label="pSGLD, area=%0.2f)" % (roc_auc_pSGLD))
+plt.plot(fpr_SGHMC, tpr_SGHMC, lw=1, color='green', label="SGHMC, area=%0.2f)" % (roc_auc_SGHMC))
+plt.plot(fpr_BBB, tpr_BBB, lw=1, color='orange', label="BBB, area=%0.2f)" % (roc_auc_BBB))
 
 plt.plot(fpr_SGLD[cd_SGLD], tpr_SGLD[cd_SGLD], 'o', color='red')
-plt.plot(fpr_pSGLD[cd_pSGLD], tpr_pSGLD[cd_pSGLD], 'o', color='red')
-plt.plot(fpr_SGHMC[cd_SGHMC], tpr_SGHMC[cd_SGHMC], 'o', color='red')
-plt.plot(fpr_BBB[cd_BBB], tpr_BBB[cd_BBB], 'o', color='red')
+plt.plot(fpr_pSGLD[cd_pSGLD], tpr_pSGLD[cd_pSGLD], 'o', color='blue')
+plt.plot(fpr_SGHMC[cd_SGHMC], tpr_SGHMC[cd_SGHMC], 'o', color='green')
+plt.plot(fpr_BBB[cd_BBB], tpr_BBB[cd_BBB], 'o', color='orange')
+
+
+plt.plot(fpr_SGLD[cd_SGLD_test], tpr_SGLD[cd_SGLD_test], '*', color='red')
+plt.plot(fpr_pSGLD[cd_pSGLD_test], tpr_pSGLD[cd_pSGLD_test], '*', color='blue')
+plt.plot(fpr_SGHMC[cd_SGHMC_test], tpr_SGHMC[cd_SGHMC_test], '*', color='green')
+plt.plot(fpr_BBB[cd_BBB_test], tpr_BBB[cd_BBB_test], '*', color='orange')
+
+
+plt.plot(fpr_SGLD[threshold5], tpr_SGLD[threshold5], '^', color='red')
+plt.plot(fpr_pSGLD[threshold5], tpr_pSGLD[threshold5], '^', color='blue')
+plt.plot(fpr_SGHMC[threshold5], tpr_SGHMC[threshold5], '^', color='green')
+plt.plot(fpr_BBB[threshold5], tpr_BBB[threshold5], '^', color='orange')
 
 plt.xlim([0.00, 1.0])
 plt.ylim([0.00, 1.0])
@@ -671,6 +702,25 @@ plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.title("ROC")
 #plt.legend(['sgld','psgld','bbb'])
+plt.legend(loc="lower right")
+
+plt.figure(21)
+plt.plot(start, end)
+plt.plot(fpr_SGLD_train, tpr_SGLD_train, color='red', label="SGLD, area=%0.2f)" % (roc_auc_SGLD_train))
+plt.plot(fpr_pSGLD_train, tpr_pSGLD_train, color='blue', label="pSGLD, area=%0.2f)" % (roc_auc_pSGLD_train))
+plt.plot(fpr_SGHMC_train, tpr_SGHMC_train, color='green', label="SGHMC, area=%0.2f)" % (roc_auc_SGHMC_train))
+plt.plot(fpr_BBB_train, tpr_BBB_train, color='orange', label="BBB, area=%0.2f)" % (roc_auc_BBB_train))
+
+plt.plot(fpr_SGLD_train[cd_SGLD], tpr_SGLD_train[cd_SGLD], 'o', color='red')
+plt.plot(fpr_pSGLD_train[cd_pSGLD], tpr_pSGLD_train[cd_pSGLD], 'o', color='blue')
+plt.plot(fpr_SGHMC_train[cd_SGHMC], tpr_SGHMC_train[cd_SGHMC], 'o', color='green')
+plt.plot(fpr_BBB_train[cd_BBB], tpr_BBB_train[cd_BBB], 'o', color='orange')
+
+plt.xlim([0.00, 1.0])
+plt.ylim([0.00, 1.0])
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.title("ROC for training set")
 plt.legend(loc="lower right")
 
 plt.show()
